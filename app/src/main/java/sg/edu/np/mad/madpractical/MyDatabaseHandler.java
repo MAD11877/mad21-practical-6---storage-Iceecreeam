@@ -57,7 +57,7 @@ class MyDatabaseHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<User> getUsers(){
-        ArrayList<User> UserList = new ArrayList<>();
+        ArrayList<User> userList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_USER;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -77,11 +77,11 @@ class MyDatabaseHandler extends SQLiteOpenHelper {
             }
             u.setFollowed(b);
 
-            UserList.add(u);
+            userList.add(u);
             cursor.moveToNext();
         }
         cursor.close();
-        return UserList;
+        return userList;
     }
 
     public void updateUser(User user){

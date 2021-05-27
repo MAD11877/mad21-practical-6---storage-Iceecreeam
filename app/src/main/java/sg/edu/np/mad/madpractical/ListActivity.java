@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
-    ArrayList<User> UserList = new ArrayList<>();
+    ArrayList<User> userList = new ArrayList<>();
     MyDatabaseHandler myDB;
     public void IconCLick(View v) {
         RelativeLayout relLay = (RelativeLayout) v.getParent();
@@ -74,14 +74,14 @@ public class ListActivity extends AppCompatActivity {
                 use.setFollowed(new Random().nextBoolean());
 
             myDB.addUser(use);
-            //UserListSingleton.getInstance().UserList.add(use);
+            //UserListSingleton.getInstance().userList.add(use);
         }
 
-        UserList = myDB.getUsers();
+        userList = myDB.getUsers();
 
         RecyclerView recyclerViewCustom = findViewById(R.id.rv);
-        //AdapterUserList customAdapter = new AdapterUserList(UserListSingleton.getInstance().UserList);
-        AdapterUserList customAdapter = new AdapterUserList(UserList);
+        //AdapterUserList customAdapter = new AdapterUserList(UserListSingleton.getInstance().userList);
+        AdapterUserList customAdapter = new AdapterUserList(userList);
         LinearLayoutManager cLayoutManager = new LinearLayoutManager(this);
         recyclerViewCustom.setLayoutManager(cLayoutManager);
         recyclerViewCustom.setItemAnimator(new DefaultItemAnimator());

@@ -6,7 +6,7 @@ public class UserListSingleton
 {
     private static UserListSingleton uList;
 
-    public static ArrayList<User> UserList = new ArrayList<User>();
+    public static ArrayList<User> userList = new ArrayList<User>();
 
     public static UserListSingleton getInstance()
     {

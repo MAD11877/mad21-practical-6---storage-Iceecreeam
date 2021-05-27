@@ -67,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-//        for (int i=0; i < UserListSingleton.getInstance().UserList.size(); i++){
-//            User us = UserListSingleton.getInstance().UserList.get(i);
+//        for (int i=0; i < UserListSingleton.getInstance().userList.size(); i++){
+//            User us = UserListSingleton.getInstance().userList.get(i);
 //            if (us.getName().equals(u.getName())){
-//                UserListSingleton.getInstance().UserList.set(i, u);
+//                UserListSingleton.getInstance().userList.set(i, u);
 //            }
 //        }
 
