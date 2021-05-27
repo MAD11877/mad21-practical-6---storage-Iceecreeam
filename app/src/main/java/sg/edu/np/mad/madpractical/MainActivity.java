@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     User u;
-    MyDatabaseHandler myDB;
+    MyDatabaseHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.txtDescription);
         description.setText(desc);
 
-        myDB = new MyDatabaseHandler(MainActivity.this);
+        dbHandler = new MyDatabaseHandler(MainActivity.this);
 
-        for (int i=0; i < myDB.getUsers().size(); i++){
-            User us = myDB.getUsers().get(i);
+        for (int i=0; i < dbHandler.getUsers().size(); i++){
+            User us = dbHandler.getUsers().get(i);
             if (us.getName().equals(name)){
                 u=us;
             }
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onFollowClick(View v) {
         u.followed = !u.followed;
-        myDB.updateUser(u);
+        dbHandler.updateUser(u);
         setFollowBtn(true);
     }
 
