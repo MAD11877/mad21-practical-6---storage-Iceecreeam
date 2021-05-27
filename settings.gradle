@@ -1,2 +1,2 @@
-rootProject.name = "MADPractical"
 include ':app'
+rootProject.name = "MADPractical"

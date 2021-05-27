@@ -2,7 +2,6 @@ package sg.edu.np.mad.madpractical;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,72 +12,53 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     User u;
-    MyDatabaseHandler dbHandler;
-
+    DBHandler dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Debug", "create");
 
-
-
-        Intent intent = getIntent();
-        String name = intent.getStringExtra("nameUser");
-        String desc = intent.getStringExtra("descUser");
-
-        TextView nameview = findViewById(R.id.txtName);
-        nameview.setText(name);
-        TextView description = findViewById(R.id.txtDescription);
-        description.setText(desc);
-
-        dbHandler = new MyDatabaseHandler(MainActivity.this);
+        Intent rec = getIntent();
+        int value = rec.getIntExtra("id",0);
+        u = ListActivity.userList.get(value);
+        dbHandler = new DBHandler(MainActivity.this);
 
         for (int i=0; i < dbHandler.getUsers().size(); i++){
             User us = dbHandler.getUsers().get(i);
-            if (us.getName().equals(name)){
+            if (us.getName().equals(u.getName())){
                 u=us;
             }
         }
+//        u.name = "MAD";
+//        u.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+//        u.id = 1;
+//        u.followed = false;
 
-        setFollowBtn(false);
-
-
+        TextView name = findViewById(R.id.txtName);
+        name.setText(u.name);
+        TextView description = findViewById(R.id.txtDescription);
+        description.setText(u.description);
+        setFollowBtn();
     }
 
-
-    private void setFollowBtn(boolean toast) {
-
-
+    private void setFollowBtn() {
         Button b = findViewById(R.id.btnFollow);
         if(u.followed) {
             b.setText("Unfollow");
-            Context context = getApplicationContext();
-            if(toast){
-                Toast.makeText(context, "Followed", Toast.LENGTH_SHORT).show();
-            }
         }
         else {
             b.setText("Follow");
-            Context context = getApplicationContext();
-            if(toast) {
-                Toast.makeText(context, "Unfollowed", Toast.LENGTH_SHORT).show();
-            }
         }
-
-//        for (int i=0; i < UserListSingleton.getInstance().userList.size(); i++){
-//            User us = UserListSingleton.getInstance().userList.get(i);
-//            if (us.getName().equals(u.getName())){
-//                UserListSingleton.getInstance().userList.set(i, u);
-//            }
-//        }
-
     }
     public void onFollowClick(View v) {
         u.followed = !u.followed;
         dbHandler.updateUser(u);
-        setFollowBtn(true);
+        if(u.followed)
+            Toast.makeText(this, "Followed", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Unfollowed", Toast.LENGTH_SHORT).show();
+        setFollowBtn();
     }
 
     @Override
@@ -116,5 +96,4 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Log.d("Debug", "restart");
     }
-
 }
